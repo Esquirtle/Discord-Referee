@@ -25,7 +25,7 @@ class DatabaseSchemaManager:
     
     def get_database_name(self, guild_id: int) -> str:
         """Generate the standardized database name for a guild."""
-        return f"goalier_guild_{guild_id}"
+        return f"referee_guild_{guild_id}"
     
     def get_table_definitions(self) -> List[str]:
         """

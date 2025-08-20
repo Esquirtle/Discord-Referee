@@ -1,7 +1,7 @@
 
 import threading
 from .console_utils import mostrar_servidores, seleccionar_servidor
-
+from .setup_commands import setup_db
 class ConsoleManager(threading.Thread):
     def __init__(self, bot, connected_guilds):
         super().__init__(daemon=True)
@@ -53,6 +53,8 @@ class ConsoleManager(threading.Thread):
             print(f"Servidores conectados: {self.bot.get_guild()}")
         elif command == "status":
             print(f"Bot conectado: {self.bot.is_ready()}")
+        elif command == "setup db":
+            setup_db(self.current_guild)
         else:
             print(f"Comando desconocido: {command}")
 

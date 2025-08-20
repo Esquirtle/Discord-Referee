@@ -1,34 +1,27 @@
-import os
-import sqlite3
+from .mgdb_manager import multi_db
 
 class DatabaseManager:
-    def __init__(self, db_path):
-        self.db_path = db_path
-        self.connection = None
+    """
+    Wrapper para usar el sistema multiguild (MultiGuildDatabase) con interfaz simplificada.
+    """
+    def __init__(self):
+        self.db = multi_db
 
-    def connect(self):
-        if self.connection is None:
-            self.connection = sqlite3.connect(self.db_path)
-            self.connection.row_factory = sqlite3.Row
-            print("✅ Conexión a la base de datos establecida.")
+    def execute_query(self, guild_id, query, params=()):
+        return self.db.execute_query(guild_id, query, params)
 
-    def close(self):
-        if self.connection is not None:
-            self.connection.close()
-            self.connection = None
-            print("✅ Conexión a la base de datos cerrada.")
+    def fetch_all(self, guild_id, query, params=()):
+        return self.db.fetch_all(guild_id, query, params)
 
-    def execute_query(self, query, params=()):
-        self.connect()
-        cursor = self.connection.cursor()
-        cursor.execute(query, params)
-        self.connection.commit()
-        return cursor
+    def fetch_one(self, guild_id, query, params=()):
+        return self.db.fetch_one(guild_id, query, params)
 
-    def fetch_all(self, query, params=()):
-        cursor = self.execute_query(query, params)
-        return cursor.fetchall()
+    def initialize_tables(self, guild_id):
+        # Crea la base de datos y las tablas usando el sistema multiguild y los modelos centralizados
+        return self.db.create_guild_database(guild_id, force=False)
 
-    def fetch_one(self, query, params=()):
-        cursor = self.execute_query(query, params)
-        return cursor.fetchone()
+    def close(self, guild_id=None):
+        if guild_id is not None:
+            self.db.disconnect_guild(guild_id)
+        else:
+            self.db.disconnect_all()

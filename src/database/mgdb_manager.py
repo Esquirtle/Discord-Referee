@@ -27,7 +27,7 @@ class MultiGuildDatabase:
     
     def get_database_name(self, guild_id: int) -> str:
 
-        return f"goalier_guild_{guild_id}"
+        return f"referee_guild_{guild_id}"
     
     def get_connection(self, guild_id: int, create_if_not_exists: bool = False) -> Optional[mysql.connector.MySQLConnection]:
         """

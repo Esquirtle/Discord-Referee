@@ -7,7 +7,7 @@ from discord.ext import commands
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from config.settings import Config
-from src.database.db_manager import DatabaseManager
+from database.db_manager import DatabaseManager
 from console.c_manager import ConsoleManager
 from guild import GuildObject
 class DiscordBot(commands.Bot):
@@ -19,7 +19,7 @@ class DiscordBot(commands.Bot):
         self.config = Config()
         super().__init__(command_prefix=self.config.getCommandPrefix(), intents=intents)
 
-        self.db_manager = DatabaseManager(db_path=self.config.getDatabaseUrl())
+        self.db_manager = DatabaseManager()
         self.connected_guilds = []  # Se llenará en on_ready
         self.console = None
         self.guild_object = GuildObject()
