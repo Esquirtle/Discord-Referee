@@ -46,6 +46,7 @@ class ConsoleManager(threading.Thread):
             self.build_guild()
         else:
             print("Servidor no conectado.")
+
     def handle_command(self, command):
         # Aquí puedes agregar tus comandos personalizados
         if command == "guilds":
@@ -54,6 +55,7 @@ class ConsoleManager(threading.Thread):
             print(f"Bot conectado: {self.bot.is_ready()}")
         else:
             print(f"Comando desconocido: {command}")
+
     def build_guild(self):
         # Aquí puedes construir el objeto GuildObject con la información del servidor actual
         self.bot.guild_object.set_id(self.current_guild.id if hasattr(self.current_guild, 'id') else self.current_guild)
