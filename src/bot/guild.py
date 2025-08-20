@@ -1,3 +1,6 @@
+from languages.lang_manager import LanguageManager
+
+
 class GuildObject:
     def __init__(self):
         self.id = None
@@ -8,7 +11,7 @@ class GuildObject:
         self.roles = []
         self.version = None
         self.config = None
-
+        self.lang_manager = LanguageManager()
     def __str__(self):
         return (
             f"GuildObject\n"

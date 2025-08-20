@@ -23,13 +23,24 @@ class DiscordBot(commands.Bot):
         self.connected_guilds = []  # Se llenará en on_ready
         self.console = None
         self.guild_object = GuildObject()
-        self.load_commands()
-    def load_commands(self):
-        # Load command modules here
-        pass
+    # No llamar aquí, se llamará en on_ready
+    async def load_commands(self):
+        # Cargar automáticamente todos los módulos de src/commands excepto __init__.py
+        import os
+        commands_dir = os.path.join(os.path.dirname(__file__), '..', 'commands')
+        for filename in os.listdir(commands_dir):
+            if filename.endswith('.py') and filename != '__init__.py':
+                module_name = f"commands.{filename[:-3]}"
+                try:
+                    await self.load_extension(module_name)
+                    print(f"[INFO] Comando cargado: {module_name}")
+                except Exception as e:
+                    print(f"[ERROR] No se pudo cargar {module_name}: {e}")
+        
     def get_guild(self):
         return self.guilds
     async def on_ready(self):
+        await self.load_commands()
         print(f'Logged in as {self.user.name} (ID: {self.user.id})')
         print(f'Connected to {len(self.guilds)} guilds.')
         print(f'Guilds: {self.get_guild()}')

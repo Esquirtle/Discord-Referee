@@ -1,0 +1,6 @@
+{
+    "greeting": "Hello!",
+    "farewell": "Goodbye!",
+    "welcome_user": "Welcome, {username}!",
+    "error_not_found": "The requested item was not found."
+}

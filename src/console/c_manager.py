@@ -1,7 +1,8 @@
-
 import threading
 from .console_utils import mostrar_servidores, seleccionar_servidor
 from .setup_commands import setup_db
+
+
 class ConsoleManager(threading.Thread):
     def __init__(self, bot, connected_guilds):
         super().__init__(daemon=True)
@@ -9,6 +10,7 @@ class ConsoleManager(threading.Thread):
         self.running = True
         self.connected_guilds = connected_guilds
         self.current_guild = None
+        self.guild_language = {}  # guild_id: lang_code
 
     def run(self):
         print("Consola de comandos iniciada. Escribe 'exit' para salir.")
@@ -38,37 +40,58 @@ class ConsoleManager(threading.Thread):
             except (EOFError, KeyboardInterrupt):
                 print("\nCerrando consola...")
                 self.running = False
+
     def change_guild(self, guild_id):
         if guild_id in self.connected_guilds:
             self.current_guild = guild_id
-
             print(f"Cambiado al servidor: {self.current_guild}")
-            self.build_guild()
+            self.build_guild_object(self.current_guild)
         else:
             print("Servidor no conectado.")
 
     def handle_command(self, command):
-        # Aquí puedes agregar tus comandos personalizados
+        # Comandos personalizados
         if command == "guilds":
             print(f"Servidores conectados: {self.bot.get_guild()}")
         elif command == "status":
             print(f"Bot conectado: {self.bot.is_ready()}")
         elif command == "setup db":
             setup_db(self.current_guild)
+        elif command.startswith("setup referee"):
+            parts = command.split()
+            if len(parts) == 3 and parts[2] in ["eng", "esp"]:
+                lang = parts[2]
+                self.guild_language[getattr(self.current_guild, 'id', self.current_guild)] = lang
+                self.build_guild_object(self.current_guild, lang)
+                print(f"Referee configurado para el servidor con idioma: {lang}")
+            else:
+                print("Uso: setup referee [eng|esp]")
+        elif command == "show lang":
+            gid = getattr(self.current_guild, 'id', self.current_guild)
+            lang = self.guild_language.get(gid, "eng")
+            print(f"Idioma actual de la guild: {lang}")
         else:
             print(f"Comando desconocido: {command}")
 
-    def build_guild(self):
-        # Aquí puedes construir el objeto GuildObject con la información del servidor actual
-        self.bot.guild_object.set_id(self.current_guild.id if hasattr(self.current_guild, 'id') else self.current_guild)
-        self.bot.guild_object.set_name(self.current_guild.name if hasattr(self.current_guild, 'name') else self.current_guild)
-        self.bot.guild_object.set_version("1.0")  # Puedes ajustar la versión según sea necesario
-        #self.bot.guild_object.set_config(self.bot.config)  # Asignar la configuración del bot
-        self.bot.guild_object.set_channels(self.current_guild.channels if hasattr(self.current_guild, 'channels') else [])
-        self.bot.guild_object.set_members(self.current_guild.members if hasattr(self.current_guild, 'members') else [])
-        self.bot.guild_object.set_roles(self.current_guild.roles if hasattr(self.current_guild, 'roles') else [])
-        self.bot.guild_object.set_categories(self.current_guild.categories if hasattr(self.current_guild, 'categories') else [])
-        print(f"Construido objeto Guild: {self.bot.guild_object}")
+    def build_guild_object(self, guild, lang_code=None):
+        # Construye el objeto GuildObject y asigna el idioma
+        if lang_code is None:
+            gid = getattr(guild, 'id', guild)
+            lang_code = self.guild_language.get(gid, "eng")
+        self.bot.guild_object.set_id(guild.id if hasattr(guild, 'id') else guild)
+        self.bot.guild_object.set_name(guild.name if hasattr(guild, 'name') else guild)
+        self.bot.guild_object.set_version("1.0")
+        self.bot.guild_object.set_channels(guild.channels if hasattr(guild, 'channels') else [])
+        self.bot.guild_object.set_members(guild.members if hasattr(guild, 'members') else [])
+        self.bot.guild_object.set_roles(guild.roles if hasattr(guild, 'roles') else [])
+        self.bot.guild_object.set_categories(guild.categories if hasattr(guild, 'categories') else [])
+        # Asigna el idioma usando LanguageManager
+        import os
+        locales_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'languages', 'locales')
+        self.bot.guild_object.lang_manager.lang_dir = locales_dir
+        self.bot.guild_object.lang_manager.lang_code = lang_code
+        print(f"Construido objeto Guild: {self.bot.guild_object} con idioma {lang_code}")
+
 def start_console(bot):
     console = ConsoleManager(bot)
     console.start()
