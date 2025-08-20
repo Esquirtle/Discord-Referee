@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from src.database.manager import Base
+from src.database.db_manager import Base
 
 class Team(Base):
     __tablename__ = 'teams'

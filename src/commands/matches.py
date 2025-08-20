@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from src.database.manager import DatabaseManager
+from src.database.db_manager import DatabaseManager
 from src.logic.match_logic import MatchLogic
 
 class MatchCommands(commands.Cog):

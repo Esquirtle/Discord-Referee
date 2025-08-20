@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from src.database.manager import DatabaseManager
+from src.database.db_manager import DatabaseManager
 
 class ProfileCommands(commands.Cog):
     def __init__(self, bot: commands.Bot, db_manager: DatabaseManager):

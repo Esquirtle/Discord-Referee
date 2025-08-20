@@ -1,4 +1,4 @@
-from database.manager import DatabaseManager
+from src.database.db_manager import DatabaseManager
 from database.models.tournament import Tournament
 from database.models.team import Team
 

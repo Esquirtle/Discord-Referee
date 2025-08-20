@@ -1,5 +1,5 @@
 from discord.ext import commands
-from database.manager import DatabaseManager
+from src.database.db_manager import DatabaseManager
 from logic.tournament_logic import TournamentLogic
 
 class TournamentCommands(commands.Cog):

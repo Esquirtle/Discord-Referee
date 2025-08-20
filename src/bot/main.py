@@ -7,8 +7,8 @@ from discord.ext import commands
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from config.settings import Config
-from database.manager import DatabaseManager
-from src.console.c_manager import ConsoleManager
+from src.database.db_manager import DatabaseManager
+from console.c_manager import ConsoleManager
 from guild import GuildObject
 class DiscordBot(commands.Bot):
     def __init__(self):
