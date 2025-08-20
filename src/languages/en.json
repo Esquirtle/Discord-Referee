@@ -1,0 +1,43 @@
+{
+  "welcome": "Welcome to the Discord Bot!",
+  "register": {
+    "title": "Register",
+    "description": "Please fill in the details to register.",
+    "fields": {
+      "username": "Enter your username",
+      "email": "Enter your email",
+      "password": "Enter your password"
+    },
+    "submit": "Register"
+  },
+  "create_team": {
+    "title": "Create Team",
+    "description": "Fill in the details to create a new team.",
+    "fields": {
+      "team_name": "Enter your team name",
+      "team_logo": "Upload your team logo"
+    },
+    "submit": "Create Team"
+  },
+  "join_match": {
+    "title": "Join Match",
+    "description": "Select a match to join.",
+    "fields": {
+      "match_id": "Enter the match ID"
+    },
+    "submit": "Join Match"
+  },
+  "ongoing_matches": "Ongoing Matches",
+  "tournaments": "Tournaments",
+  "leagues": "Leagues",
+  "view_statistics": "View Statistics",
+  "modify_profile": {
+    "title": "Modify Profile",
+    "description": "Update your profile information.",
+    "fields": {
+      "new_username": "Enter your new username",
+      "new_email": "Enter your new email"
+    },
+    "submit": "Update Profile"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "welcome": "Bienvenue sur le bot de gestion de matchs et de tournois!",
+  "register": {
+    "title": "Inscription",
+    "description": "Veuillez remplir les informations suivantes pour vous inscrire."
+  },
+  "create_team": {
+    "title": "Créer une Équipe",
+    "description": "Entrez le nom de votre équipe et sélectionnez les membres."
+  },
+  "join_match": {
+    "title": "Rejoindre un Match",
+    "description": "Sélectionnez le match auquel vous souhaitez participer."
+  },
+  "ongoing_matches": {
+    "title": "Matchs en Cours",
+    "description": "Voici la liste des matchs actuellement en cours."
+  },
+  "tournaments": {
+    "title": "Tournois",
+    "description": "Consultez les tournois disponibles et inscrivez-vous."
+  },
+  "leagues": {
+    "title": "Ligues",
+    "description": "Découvrez les ligues en cours et comment y participer."
+  },
+  "statistics": {
+    "title": "Statistiques",
+    "description": "Vérifiez vos statistiques et performances."
+  },
+  "modify_profile": {
+    "title": "Modifier le Profil",
+    "description": "Mettez à jour vos informations personnelles."
+  }
+}
