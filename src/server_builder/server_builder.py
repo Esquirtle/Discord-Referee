@@ -11,3 +11,4 @@ class ServerBuilder:
         print("Building server with the following configuration:")
         print(f"Panel Manager: {self.panel_manager}")
         print(f"CaC Factory: {self.cac_factory}")
+        # Ejemplo de cómo podrías usar el panel_manager para cargar un panel
