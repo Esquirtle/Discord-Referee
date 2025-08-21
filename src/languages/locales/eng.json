@@ -18,5 +18,15 @@
     "register_modal_steamid_placeholder": "Enter your Steam ID",
     "register_success": "Registration successful! Your Steam ID has been recorded.",
     "button_ok": "OK",
-    "button_cancel": "Cancel"
+    "button_cancel": "Cancel",
+    "categories" :{
+        "register": "Register",
+        "scrim": "Scrims",
+        "stats": "Stats"
+    },
+    "channels": {
+        "register.panel": "Register Panel",
+        "scrim.panel": "Scrims",
+        "stats.panel": "Stats"
+    }
 }

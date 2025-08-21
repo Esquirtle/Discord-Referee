@@ -52,6 +52,25 @@ class DiscordBot(commands.Bot):
         if not self.console:
             self.console = ConsoleManager(bot=self, connected_guilds=self.connected_guilds)
             self.console.start()
+    #funcion para enviar mensajes
+    async def send_embed(self, channel_id, embed, view):
+        channel = self.get_channel(channel_id)
+        if channel:
+            await channel.send(embed=embed, view=view)
+    #funcion para crear categorias
+    async def create_category(self, name, **kwargs):
+        ctx = self.get_context()
+        return await ctx.create_category(name, **kwargs)
+    #funcion para crear canales
+    async def create_channel(self, name, **kwargs):
+        ctx = self.get_context()
+        return await ctx.create_channel(name, **kwargs)
+    #funcion para crear canal en categoria
+    async def create_channel_in(self, category_id, name, **kwargs):
+        category = self.ctx.category_manager.get_category_by_id(category_id)
+        if not category:
+            raise ValueError("Category not found")
+        return await self.ctx.create_channel(name, category=category, **kwargs)
 
 def main():
     bot = DiscordBot()

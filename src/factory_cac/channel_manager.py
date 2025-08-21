@@ -5,6 +5,8 @@ class ChannelManager():
     def __init__(self, bot, lang_manager: LanguageManager):
         self.bot = bot
         self.lang_manager = lang_manager
+        self.channels : list[Channel] = []
+
     def __repr__(self):
         return f"<ChannelManager bot={self.bot} lang_manager={self.lang_manager}>"
 
@@ -16,7 +18,9 @@ class ChannelManager():
             guild = self.bot.get_guild(guild)
         if guild is None:
             raise ValueError("ChannelManager: 'guild' is None or invalid. Cannot create channel.")
-        return await guild.create_text_channel(name, **kwargs)
+        channel = await guild.create_text_channel(name, **kwargs)
+        self.channels[channel.id] = channel
+        return channel
 
     async def edit_channel(self, channel, **kwargs):
         await channel.edit(**kwargs)
@@ -27,13 +31,10 @@ class ChannelManager():
         return True
 
     def get_channel_by_name(self, name):
-        for channel in self.guild.channels:
-            if channel.name == name:
-                return channel
-        return None
+        return self.channels.get(name)
 
     def get_channel_by_id(self, channel_id):
-        for channel in self.guild.channels:
+        for channel in self.channels.values():
             if channel.id == channel_id:
                 return channel
         return None
@@ -49,3 +50,10 @@ class ChannelManager():
 
     def list_channels_in_category(self, category_id):
         return [ch for ch in self.guild.channels if getattr(ch, "category_id", None) == category_id]
+class Channel:
+    def __init__(self, name):
+        self.name = name
+        self.id = None
+        self.category_id = None
+    def __repr__(self):
+        return f"<Channel name={self.name} id={self.id} category_id={self.category_id}>"

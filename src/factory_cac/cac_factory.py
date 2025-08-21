@@ -76,3 +76,4 @@ class CaCFactory:
 
     def get_category_by_name(self, name):
         return self.category_manager.get_category_by_name(name)
+

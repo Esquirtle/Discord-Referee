@@ -2,7 +2,8 @@ import discord
 from factory_panel.panel_manager import PanelManager
 from factory_cac.cac_factory import CaCFactory
 from languages.lang_manager import LanguageManager
-class ServerBuilder:
+from discord.ext import commands
+class ServerBuilder(commands.Cog):
     def __init__(self, lang_manager : LanguageManager, bot):
         self.panel_manager = PanelManager(lang_manager, panels_dir="src/factory_panel/json_panels")
         self.bot = bot
