@@ -1,18 +1,18 @@
-class ChannelManager:
-    def __init__(self, guild):
+import discord
+class ChannelManager():
+    def __init__(self, bot, guild):
+        self.bot = bot
         self.guild = guild
 
-    async def create_channel(self, name, category_id=None, **kwargs):
-        category = None
-        if category_id is not None:
-            category = self.guild.get_channel(category_id)
-            if category is None or not getattr(category, "is_category", lambda: False)():
-                # Fallback: buscar en guild.categories
-                for cat in getattr(self.guild, "categories", []):
-                    if cat.id == category_id:
-                        category = cat
-                        break
-        return await self.guild.create_text_channel(name, category=category, **kwargs)
+    async def create_channel(self, name, **kwargs):
+        # Obtener el objeto Guild desde el bot si self.guild es un id
+        guild = self.guild
+        if isinstance(guild, int):
+            # Buscar el objeto Guild real usando el bot
+            guild = self.bot.get_guild(guild)
+        if guild is None:
+            raise ValueError("ChannelManager: 'guild' is None or invalid. Cannot create channel.")
+        return await guild.create_text_channel(name, **kwargs)
 
     async def edit_channel(self, channel, **kwargs):
         await channel.edit(**kwargs)

@@ -1,4 +1,10 @@
 {
+    "panel_title": "Example Panel",
+    "panel_description": "This is an example panel.",
+    "panel_footer": "This is the footer of the example panel.",
+    "modal_title": "Example Modal",
+    "modal_description": "This is an example modal.",
+    "modal_field1" : "This is a field in the example modal.",
     "greeting": "Hello!",
     "farewell": "Goodbye!",
     "welcome_user": "Welcome, {username}!",
@@ -10,5 +16,7 @@
     "register_modal_title": "Steam Registration",
     "register_modal_steamid_label": "Steam ID",
     "register_modal_steamid_placeholder": "Enter your Steam ID",
-    "register_success": "Registration successful! Your Steam ID has been recorded."
+    "register_success": "Registration successful! Your Steam ID has been recorded.",
+    "button_ok": "OK",
+    "button_cancel": "Cancel"
 }

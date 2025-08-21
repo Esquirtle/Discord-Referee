@@ -1,6 +1,7 @@
 class CategoryManager:
-    def __init__(self, guild):
+    def __init__(self, guild, bot):
         self.guild = guild
+        self.bot = bot
 
     async def create_category(self, name, **kwargs):
         return await self.guild.create_category(name, **kwargs)

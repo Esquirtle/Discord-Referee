@@ -1,5 +1,6 @@
 from languages.lang_manager import LanguageManager
-
+from factory_cac.cac_factory import CaCFactory
+from factory_panel.embeds.embed_gen import EmbedGenerator
 
 class GuildObject:
     def __init__(self):
@@ -11,7 +12,9 @@ class GuildObject:
         self.roles = []
         self.version = None
         self.config = None
-        self.lang_manager = LanguageManager()
+        self.lang_manager : LanguageManager= LanguageManager()
+        self.cac_factory = None
+        self.embed_gen = None
     def __str__(self):
         return (
             f"GuildObject\n"
@@ -22,7 +25,28 @@ class GuildObject:
             f"  config={self.config},\n"
             f"^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
         )
-
+    def get_id(self) -> int:
+        return self.id
+    def get_name(self) -> str:
+        return self.name
+    def get_members(self) -> list:
+        return self.members
+    def get_channels(self) -> list:
+        return self.channels
+    def get_categories(self) -> list:
+        return self.categories
+    def get_roles(self) -> list:
+        return self.roles
+    def get_config(self) -> dict:
+        return self.config
+    def get_cac_factory(self) -> CaCFactory:
+        return self.cac_factory
+    def get_lang_manager(self) -> LanguageManager:
+        return self.lang_manager
+    def set_cac_factory(self, cac_factory: CaCFactory):
+        self.cac_factory = cac_factory
+    def set_embed_gen(self, embed_gen: EmbedGenerator):
+        self.embed_gen = embed_gen
     def set_id(self, guild_id):
         self.id = guild_id
     def set_name(self, guild_name):
