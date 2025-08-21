@@ -1,0 +1,29 @@
+{
+    "embed": {
+        "title": "register_panel_title",
+        "description": "register_panel_description",
+        "color": 3447003,
+        "fields": [],
+        "footer": "register_panel_footer"
+    },
+    "buttons": {
+        "buttons": [
+            {
+                "label": "register_button_label",
+                "style": "success",
+                "custom_id": "register_btn"
+            }
+        ]
+    },
+    "modal": {
+        "title": "register_modal_title",
+        "fields": [
+            {
+                "label": "register_modal_steamid_label",
+                "placeholder": "register_modal_steamid_placeholder",
+                "required": true,
+                "style": "short"
+            }
+        ]
+    }
+}

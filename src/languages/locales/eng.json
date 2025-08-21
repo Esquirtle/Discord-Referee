@@ -2,5 +2,13 @@
     "greeting": "Hello!",
     "farewell": "Goodbye!",
     "welcome_user": "Welcome, {username}!",
-    "error_not_found": "The requested item was not found."
+    "error_not_found": "The requested item was not found.",
+    "register_panel_title": "Register",
+    "register_panel_description": "Register your Steam ID to participate.",
+    "register_panel_footer": "Please use a valid Steam ID.",
+    "register_button_label": "Register",
+    "register_modal_title": "Steam Registration",
+    "register_modal_steamid_label": "Steam ID",
+    "register_modal_steamid_placeholder": "Enter your Steam ID",
+    "register_success": "Registration successful! Your Steam ID has been recorded."
 }

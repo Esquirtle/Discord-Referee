@@ -1,0 +1,23 @@
+{
+    "embed": {
+        "title": "panel_title",
+        "description": "panel_description",
+        "color": 3447003,
+        "fields": [
+            {"name": "field1_name", "value": "field1_value", "inline": false}
+        ],
+        "footer": "panel_footer"
+    },
+    "buttons": {
+        "buttons": [
+            {"label": "button_ok", "style": "success", "custom_id": "ok_btn"},
+            {"label": "button_cancel", "style": "danger", "custom_id": "cancel_btn"}
+        ]
+    },
+    "modal": {
+        "title": "modal_title",
+        "fields": [
+            {"label": "modal_field1", "placeholder": "modal_placeholder1", "required": true, "style": "short"}
+        ]
+    }
+}

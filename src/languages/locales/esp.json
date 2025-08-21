@@ -2,5 +2,13 @@
     "greeting": "¡Hola!",
     "farewell": "¡Adiós!",
     "welcome_user": "¡Bienvenido, {username}!",
-    "error_not_found": "El elemento solicitado no fue encontrado."
+    "error_not_found": "El elemento solicitado no fue encontrado.",
+    "register_panel_title": "Registro",
+    "register_panel_description": "Registra tu Steam ID para participar.",
+    "register_panel_footer": "Por favor, usa un Steam ID válido.",
+    "register_button_label": "Registrarse",
+    "register_modal_title": "Registro de Steam",
+    "register_modal_steamid_label": "Steam ID",
+    "register_modal_steamid_placeholder": "Introduce tu Steam ID",
+    "register_success": "¡Registro exitoso! Tu Steam ID ha sido guardado."
 }
