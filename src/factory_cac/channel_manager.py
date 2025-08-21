@@ -1,26 +1,38 @@
 import discord
 
 from languages.lang_manager import LanguageManager
-class ChannelManager():
+class ChannelManager:
     def __init__(self, bot, lang_manager: LanguageManager):
         self.bot = bot
         self.lang_manager = lang_manager
-        self.channels : list[Channel] = []
+        self.channels: dict[str, Channel] = {}
 
     def __repr__(self):
         return f"<ChannelManager bot={self.bot} lang_manager={self.lang_manager}>"
 
-    async def create_channel(self, name, **kwargs):
-        # Obtener el objeto Guild desde el bot si self.guild es un id
-        guild = self.guild
-        if isinstance(guild, int):
-            # Buscar el objeto Guild real usando el bot
-            guild = self.bot.get_guild(guild)
-        if guild is None:
-            raise ValueError("ChannelManager: 'guild' is None or invalid. Cannot create channel.")
-        channel = await guild.create_text_channel(name, **kwargs)
-        self.channels[channel.id] = channel
-        return channel
+    def load_channels_from_lang(self):
+        """
+        Carga los canales desde el archivo de idioma y crea objetos Channel.
+        """
+        channels_dict = self.lang_manager.translations.get("channels", {})
+        for key, name in channels_dict.items():
+            self.channels[key] = Channel(name=name)
+
+    async def create_channel(self, key, category_id=None, **kwargs):
+        """
+        Crea el canal en Discord usando el nombre del idioma y guarda la id.
+        """
+        channel_obj = self.channels.get(key)
+        if not channel_obj:
+            raise ValueError(f"Channel key '{key}' not found.")
+        guild = kwargs.pop("guild", None) or self.bot.guilds[0]
+        discord_channel = await guild.create_text_channel(channel_obj.name, category_id=category_id, **kwargs)
+        channel_obj.id = discord_channel.id
+        channel_obj.category_id = category_id
+        return discord_channel
+
+    def get_channel_by_key(self, key):
+        return self.channels.get(key)
 
     async def edit_channel(self, channel, **kwargs):
         await channel.edit(**kwargs)

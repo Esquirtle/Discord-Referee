@@ -25,6 +25,13 @@ class CaCFactory:
     def get_category_manager(self):
         return self.category_manager
 
+    async def setup(self):
+        await self.channel_manager.load_channels_from_lang()
+        await self.category_manager.load_categories_from_lang()
+        categories = self.category_manager.get_categories()
+        for category in categories:
+            category.channels = self.bot.create_category(category.name)
+
     def __str__(self):
         return (
             f"CaCFactory\n"

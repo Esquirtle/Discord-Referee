@@ -10,10 +10,11 @@ class ServerBuilder(commands.Cog):
         self.lang_manager = lang_manager
         self.cac_factory = CaCFactory(bot, lang_manager)
 
-    def build_server(self):
+    async def build_server(self):
         # Aquí se construiría el servidor utilizando self.panel_manager y self.cac_factory
         print("Building server with the following configuration:")
         print(f"Panel Manager: {self.panel_manager}")
         print(f"CaC Factory: {self.cac_factory}")
+        await self.cac_factory.setup()
         # Ejemplo de cómo podrías usar el panel_manager para cargar un panel
     

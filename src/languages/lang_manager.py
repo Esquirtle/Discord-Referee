@@ -37,7 +37,8 @@ class LanguageManager:
                 self.translations = json.load(f)
         except FileNotFoundError:
             self.translations = {}
-
+    def get_categories(self):
+        return self.translations.get("categories", {})
     def set_language(self, lang_code):
         self.lang_code = lang_code
 
