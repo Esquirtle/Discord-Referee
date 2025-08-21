@@ -27,3 +27,10 @@ class PanelManager:
         if "modal" in config:
             modal = self.modal_gen.from_config(config["modal"])
         return {"embed": embed, "buttons": buttons, "modal": modal}
+    def build_all_panels(self):
+        panels = {}
+        for panel_name in os.listdir(self.panels_dir):
+            if panel_name.endswith(".json"):
+                panel_name = panel_name[:-5]  # Remove .json extension
+                panels[panel_name] = self.build_panel(panel_name)
+        return panels

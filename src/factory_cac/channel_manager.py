@@ -1,8 +1,12 @@
 import discord
+
+from languages.lang_manager import LanguageManager
 class ChannelManager():
-    def __init__(self, bot, guild):
+    def __init__(self, bot, lang_manager: LanguageManager):
         self.bot = bot
-        self.guild = guild
+        self.lang_manager = lang_manager
+    def __repr__(self):
+        return f"<ChannelManager bot={self.bot} lang_manager={self.lang_manager}>"
 
     async def create_channel(self, name, **kwargs):
         # Obtener el objeto Guild desde el bot si self.guild es un id

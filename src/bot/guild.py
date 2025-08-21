@@ -1,9 +1,11 @@
 from languages.lang_manager import LanguageManager
 from factory_cac.cac_factory import CaCFactory
 from factory_panel.embeds.embed_gen import EmbedGenerator
+from server_builder.server_builder import ServerBuilder
 
 class GuildObject:
-    def __init__(self):
+    def __init__(self, bot):
+        self.bot = bot
         self.id = None
         self.name = None
         self.members = []
@@ -12,9 +14,9 @@ class GuildObject:
         self.roles = []
         self.version = None
         self.config = None
-        self.lang_manager : LanguageManager= LanguageManager()
-        self.cac_factory = None
-        self.embed_gen = None
+        self.lang_manager : LanguageManager = LanguageManager(lang_code='eng')
+        self.server_builder : ServerBuilder = ServerBuilder(self.lang_manager, self.bot)
+
     def __str__(self):
         return (
             f"GuildObject\n"

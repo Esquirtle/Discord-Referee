@@ -3,11 +3,11 @@ import os
 
 #language manager using i18n
 class LanguageManager:
-    def __init__(self):
-        self._lang_code = None
+    def __init__(self, lang_code):
+        self._lang_code = lang_code
         self._lang_dir = None
         self.translations = {}
-
+        super().__init__()
     @property
     def lang_code(self):
         return self._lang_code

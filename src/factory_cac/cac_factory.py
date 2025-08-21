@@ -1,18 +1,19 @@
 from .channel_manager import ChannelManager
 from .category_manager import CategoryManager
-
+from languages.lang_manager import LanguageManager
 class CaCFactory:
-    def __init__(self, guild, bot):
-        self.guild = guild
+    def __init__(self, bot, lang_manager : LanguageManager):
         self.bot = bot
-        self.channel_manager = ChannelManager(bot, guild)
-        self.category_manager = CategoryManager(bot, guild)
-        print(f"CaCFactory initialized for guild: {self.guild}")
+        self.guild = None
+        self.lang_manager = lang_manager
+        self.channel_manager = ChannelManager(self.bot, lang_manager=self.lang_manager)
+        self.category_manager = CategoryManager(self.bot, lang_manager=self.lang_manager)
+    print(f"CaCFactory initialized for guild:")
     def set_guild(self, guild, bot):
         self.guild = guild
         self.bot = bot
-        self.channel_manager = ChannelManager(self.bot, self.guild)
-        self.category_manager = CategoryManager(self.bot, self.guild)
+        self.channel_manager = ChannelManager(self.bot, lang_manager=self.lang_manager)
+        self.category_manager = CategoryManager(self.bot, lang_manager=self.lang_manager)
     def get_guild(self):
         return self.guild
     def set_channel_manager(self, channel_manager):

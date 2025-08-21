@@ -12,17 +12,18 @@ from console.c_manager import ConsoleManager
 from guild import GuildObject
 class DiscordBot(commands.Bot):
     def __init__(self):
+
         intents = discord.Intents.default()
         intents.message_content = True
         intents.guilds = True
         intents.members = True
         self.config = Config()
         super().__init__(command_prefix=self.config.getCommandPrefix(), intents=intents)
-
+        self.guild_object = None
         self.db_manager = DatabaseManager()
         self.connected_guilds = []  # Se llenará en on_ready
         self.console = None
-        self.guild_object = GuildObject()
+        self.guild_object = None
     # No llamar aquí, se llamará en on_ready
     async def load_commands(self):
         # Cargar automáticamente todos los módulos de src/commands excepto __init__.py
@@ -36,7 +37,8 @@ class DiscordBot(commands.Bot):
                     print(f"[INFO] Comando cargado: {module_name}")
                 except Exception as e:
                     print(f"[ERROR] No se pudo cargar {module_name}: {e}")
-        
+    def set_guild_object(self, guild_object):
+        self.guild_object = guild_object
     def get_guild(self):
         return self.guilds
     async def on_ready(self):

@@ -1,7 +1,7 @@
 import threading
 from .console_utils import mostrar_servidores, seleccionar_servidor
 from .setup_commands import setup_db
-
+from bot.guild import GuildObject
 
 class ConsoleManager(threading.Thread):
     def __init__(self, bot, connected_guilds):
@@ -74,23 +74,26 @@ class ConsoleManager(threading.Thread):
             print(f"Comando desconocido: {command}")
 
     def build_guild_object(self, guild, lang_code=None):
+        object_guild = GuildObject(bot=self.bot)
         # Construye el objeto GuildObject y asigna el idioma
         if lang_code is None:
             gid = getattr(guild, 'id', guild)
             lang_code = self.guild_language.get(gid, "eng")
-        self.bot.guild_object.set_id(guild.id if hasattr(guild, 'id') else guild)
-        self.bot.guild_object.set_name(guild.name if hasattr(guild, 'name') else guild)
-        self.bot.guild_object.set_version("1.0")
-        self.bot.guild_object.set_channels(guild.channels if hasattr(guild, 'channels') else [])
-        self.bot.guild_object.set_members(guild.members if hasattr(guild, 'members') else [])
-        self.bot.guild_object.set_roles(guild.roles if hasattr(guild, 'roles') else [])
-        self.bot.guild_object.set_categories(guild.categories if hasattr(guild, 'categories') else [])
+        object_guild.set_id(guild.id if hasattr(guild, 'id') else guild)
+        object_guild.set_name(guild.name if hasattr(guild, 'name') else guild)
+        object_guild.set_version("1.0")
+        object_guild.set_channels(guild.channels if hasattr(guild, 'channels') else [])
+        object_guild.set_members(guild.members if hasattr(guild, 'members') else [])
+        object_guild.set_roles(guild.roles if hasattr(guild, 'roles') else [])
+        object_guild.set_categories(guild.categories if hasattr(guild, 'categories') else [])
         # Asigna el idioma usando LanguageManager
         import os
         locales_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'languages', 'locales')
-        self.bot.guild_object.lang_manager.lang_dir = locales_dir
-        self.bot.guild_object.lang_manager.lang_code = lang_code
-        print(f"Construido objeto Guild: {self.bot.guild_object} con idioma {lang_code}")
+        object_guild.lang_manager.lang_dir = locales_dir
+        object_guild.lang_manager.lang_code = lang_code
+        print(f"Construido objeto Guild: {object_guild} con idioma {lang_code}")
+        self.bot.set_guild_object(object_guild)
+        return
 
 def start_console(bot):
     console = ConsoleManager(bot)
