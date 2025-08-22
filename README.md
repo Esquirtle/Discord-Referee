@@ -1,50 +1,87 @@
-# Discord Bot Project
+# Discord-Referee
 
-## Overview
-This project is a Discord bot designed to manage matches, tournaments, and leagues. It features interactive panel generators with multi-language support, allowing users to register, create teams, join matches, view ongoing matches, tournaments, or leagues, check their statistics, and modify their profiles.
+Bot modular para Discord orientado a la gestión de ligas, torneos y equipos, con soporte multilenguaje, paneles interactivos y administración avanzada de servidores.
 
-## Project Structure
-The project is organized into several modules, each responsible for different functionalities:
+---
 
-- **src/bot**: Contains the main bot logic and event handling.
-- **src/commands**: Houses command files for managing matches, tournaments, leagues, teams, statistics, and user profiles.
-- **src/database**: Manages database connections, models, and migrations.
-- **src/logic**: Implements the core logic for matches, tournaments, and leagues.
-- **src/panels**: Generates interactive panels and modals for user interaction.
-- **src/utils**: Provides utility functions for localization, validation, and other helper tasks.
-- **src/config**: Contains configuration settings for the bot.
+## Características
 
-## Features
-- **Multi-language Support**: The bot supports multiple languages through JSON files for modals.
-- **User Interaction**: Users can register, create teams, join matches, and view statistics.
-- **Tournament and League Management**: The bot includes systems for managing tournaments, scrims, and leagues.
-- **Database Integration**: All data is stored in a database, allowing for persistent storage and retrieval of information.
+- **Paneles interactivos**: Embeds, botones y modales configurables desde archivos JSON.
+- **Soporte multilenguaje**: Traducciones y textos personalizables en `src/languages/locales/`.
+- **Gestión automática de canales y categorías**: Estructura del servidor definida en el idioma.
+- **Persistencia en base de datos**: Soporte para MySQL/MongoDB.
+- **Consola administrativa**: Control y configuración desde la terminal.
+- **Arquitectura extensible**: Añade fácilmente nuevos comandos, paneles y funcionalidades.
 
-## Installation
-1. Clone the repository:
+---
+
+## Estructura del Proyecto
+
+```
+src/
+  bot/             # Inicialización del bot y gestión de guilds
+  commands/        # Comandos de usuario y administración
+  config/          # Configuración y variables de entorno
+  console/         # Consola administrativa
+  database/        # Abstracción y modelos de base de datos
+  factory_cac/     # Fábricas de canales y categorías
+  factory_panel/   # Generadores de paneles (embeds, botones, modales)
+  languages/       # Archivos de idioma y gestor de traducciones
+  server_builder/  # Lógica para construir la estructura del servidor
+  utils/           # Utilidades y helpers
+```
+
+---
+
+## Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/Esquirtle/Discord-Referee.git
+   cd Discord-Referee
    ```
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```
-   cd discord-bot-project
-   ```
-3. Install the required dependencies:
-   ```
+
+2. Instala las dependencias:
+   ```bash
    pip install -r requirements.txt
    ```
 
-## Configuration
-- Create a `.env` file based on the `.env.example` file provided, and fill in the necessary environment variables.
+3. Configura el archivo `.env` en `src/config/` con tu token de bot y datos de base de datos.
 
-## Running the Bot
-To start the bot, run the following command:
-```
+4. Personaliza los archivos de idioma en `src/languages/locales/` y los paneles en `src/factory_panel/json_panels/` según tus necesidades.
+
+---
+
+## Uso
+
+Ejecuta el bot con:
+
+```bash
 python src/bot/main.py
 ```
 
-## Contributing
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
+El bot cargará los comandos y la estructura del servidor según la configuración del idioma y los paneles definidos.
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+---
+
+## Personalización
+
+- **Paneles**: Añade o edita archivos JSON en `src/factory_panel/json_panels/` para definir nuevos paneles, botones y modales.
+- **Idiomas**: Añade o edita archivos en `src/languages/locales/` para soportar nuevos idiomas o modificar textos.
+- **Comandos**: Añade nuevos archivos Python en `src/commands/` para extender la funcionalidad del bot.
+
+---
+
+## Contribución
+
+¡Las contribuciones son bienvenidas! Abre un issue o pull request para sugerir mejoras o reportar errores.
+
+---
+
+## Licencia
+
+MIT
+
+---
+
+**Discord-Referee** es un proyecto en desarrollo. Para dudas o soporte, contacta al autor o abre un issue en el repositorio.
