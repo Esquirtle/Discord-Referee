@@ -80,9 +80,12 @@ class TestCommands(commands.Cog):
         await ctx.send(embed=myembed.embed, view=myview)
     @commands.command(name='test_server_builder')
     async def test_server_builder(self, ctx: commands.Context):
-        panel_manager = PanelManager(self.bot.guild_object.get_lang_manager())
-        cac_factory = CaCFactory(ctx.guild, self.bot)
-        server_builder = ServerBuilder(panel_manager, cac_factory)
-        server_builder.build_server()
+        lang_manager = self.bot.guild_object.get_lang_manager()
+        panel_manager = PanelManager(lang_manager)
+        cac_factory = CaCFactory(ctx.guild, lang_manager)
+        server_builder = ServerBuilder(lang_manager, ctx.guild)
+        server_builder.panel_manager = panel_manager
+        server_builder.cac_factory = cac_factory
+        await server_builder.build_server(ctx.guild)
 async def setup(bot: commands.Bot):
     await bot.add_cog(TestCommands(bot))

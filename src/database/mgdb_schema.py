@@ -6,7 +6,7 @@ Handles all database creation, migration, and schema operations.
 import os
 import mysql.connector
 from mysql.connector import Error
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 import logging
 
 class DatabaseSchemaManager:

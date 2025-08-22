@@ -1,4 +1,16 @@
 {
+    "ServerConfig": {
+        "categories": {
+            "register": "Register",
+            "scrim": "Scrims",
+            "stats": "Stats"
+        },
+        "channels": {
+            "register.panel": "Register Panel",
+            "scrim.panel": "Scrims",
+            "stats.panel": "Stats"
+        }
+    },
     "panel_title": "Example Panel",
     "panel_description": "This is an example panel.",
     "panel_footer": "This is the footer of the example panel.",
@@ -18,15 +30,6 @@
     "register_modal_steamid_placeholder": "Enter your Steam ID",
     "register_success": "Registration successful! Your Steam ID has been recorded.",
     "button_ok": "OK",
-    "button_cancel": "Cancel",
-    "categories" :{
-        "register": "Register",
-        "scrim": "Scrims",
-        "stats": "Stats"
-    },
-    "channels": {
-        "register.panel": "Register Panel",
-        "scrim.panel": "Scrims",
-        "stats.panel": "Stats"
-    }
+    "button_cancel": "Cancel"
+
 }

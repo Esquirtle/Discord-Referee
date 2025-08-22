@@ -1,6 +1,13 @@
 import discord
 
 from languages.lang_manager import LanguageManager
+class Channel:
+    def __init__(self, name):
+        self.name = name
+        self.id = None
+        self.category_id = None
+    def __repr__(self):
+        return f"<Channel name={self.name} id={self.id} category_id={self.category_id}>"
 class ChannelManager:
     def __init__(self, bot, lang_manager: LanguageManager):
         self.bot = bot
@@ -18,17 +25,22 @@ class ChannelManager:
         for key, name in channels_dict.items():
             self.channels[key] = Channel(name=name)
 
-    async def create_channel(self, key, category_id=None, **kwargs):
+    async def create_channel(self, key, name, category_id=None, guild=None, **kwargs):
         """
         Crea el canal en Discord usando el nombre del idioma y guarda la id.
+        Siempre añade un objeto Channel a la lista, con id y nombre.
+        Permite crear el canal dentro de una categoría específica por id.
         """
         channel_obj = self.channels.get(key)
         if not channel_obj:
-            raise ValueError(f"Channel key '{key}' not found.")
-        guild = kwargs.pop("guild", None) or self.bot.guilds[0]
-        discord_channel = await guild.create_text_channel(channel_obj.name, category_id=category_id, **kwargs)
+            channel_obj = Channel(name=name)
+        category = None
+        if category_id:
+            category = discord.utils.get(guild.categories, id=category_id)
+        discord_channel = await guild.create_text_channel(name, category=category, **kwargs)
         channel_obj.id = discord_channel.id
         channel_obj.category_id = category_id
+        self.channels[key] = channel_obj
         return discord_channel
 
     def get_channel_by_key(self, key):
@@ -62,10 +74,3 @@ class ChannelManager:
 
     def list_channels_in_category(self, category_id):
         return [ch for ch in self.guild.channels if getattr(ch, "category_id", None) == category_id]
-class Channel:
-    def __init__(self, name):
-        self.name = name
-        self.id = None
-        self.category_id = None
-    def __repr__(self):
-        return f"<Channel name={self.name} id={self.id} category_id={self.category_id}>"

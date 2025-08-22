@@ -40,12 +40,12 @@ class DiscordBot(commands.Bot):
     def set_guild_object(self, guild_object):
         self.guild_object = guild_object
     def get_guild(self):
-        return self.guilds
+        guild = self.guild_object.get_guild()
+        return guild
     async def on_ready(self):
         await self.load_commands()
         print(f'Logged in as {self.user.name} (ID: {self.user.id})')
         print(f'Connected to {len(self.guilds)} guilds.')
-        print(f'Guilds: {self.get_guild()}')
         # Llenar la lista de guilds conectados
         self.connected_guilds.clear()
         self.connected_guilds.extend(list(self.guilds))

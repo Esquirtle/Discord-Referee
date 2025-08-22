@@ -25,12 +25,33 @@ class CaCFactory:
     def get_category_manager(self):
         return self.category_manager
 
-    async def setup(self):
-        await self.channel_manager.load_channels_from_lang()
-        await self.category_manager.load_categories_from_lang()
-        categories = self.category_manager.get_categories()
-        for category in categories:
-            category.channels = self.bot.create_category(category.name)
+    async def setup(self, guild):
+    # Eliminar cualquier código anterior que cree categorías/canales fuera de ServerConfig
+            # Cargar configuración desde ServerConfig del idioma
+            server_config = self.lang_manager.translations.get("ServerConfig", {})
+            categories_dict = server_config.get("categories", {})
+            channels_dict = server_config.get("channels", {})
+
+            # Crear categorías y guardar sus ids
+            category_ids = {}
+            print("[CaCFactory] Creando categorías:")
+            for cat_key, cat_name in categories_dict.items():
+                print(f"  Creando categoría '{cat_key}': '{cat_name}' ...")
+                discord_category = await self.category_manager.create_category(cat_key, cat_name, guild=guild)
+                print(f"    -> ID Discord: {discord_category.id}")
+                category_ids[cat_key] = discord_category.id
+
+            # Crear canales y asociarlos a la categoría correspondiente si aplica
+            print("[CaCFactory] Creando canales:")
+            for chan_key, chan_name in channels_dict.items():
+                if "." in chan_key:
+                    cat_key = chan_key.split(".")[0]
+                    category_id = category_ids.get(cat_key)
+                else:
+                    category_id = None
+                print(f"  Creando canal '{chan_key}': '{chan_name}' en categoría ID: {category_id}")
+                discord_channel = await self.channel_manager.create_channel(chan_key, chan_name, category_id=category_id, guild=guild)
+                print(f"    -> ID Discord: {discord_channel.id}")
 
     def __str__(self):
         return (
