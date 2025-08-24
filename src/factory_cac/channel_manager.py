@@ -9,10 +9,10 @@ class Channel:
     def __repr__(self):
         return f"<Channel name={self.name} id={self.id} category_id={self.category_id}>"
 class ChannelManager:
-    def __init__(self, bot, lang_manager: LanguageManager):
+    def __init__(self, bot, lang_manager):
         self.bot = bot
         self.lang_manager = lang_manager
-        self.channels: dict[str, Channel] = {}
+        self.channels = {}
 
     def __repr__(self):
         return f"<ChannelManager bot={self.bot} lang_manager={self.lang_manager}>"
@@ -26,21 +26,11 @@ class ChannelManager:
             self.channels[key] = Channel(name=name)
 
     async def create_channel(self, key, name, category_id=None, guild=None, **kwargs):
-        """
-        Crea el canal en Discord usando el nombre del idioma y guarda la id.
-        Siempre añade un objeto Channel a la lista, con id y nombre.
-        Permite crear el canal dentro de una categoría específica por id.
-        """
-        channel_obj = self.channels.get(key)
-        if not channel_obj:
-            channel_obj = Channel(name=name)
         category = None
         if category_id:
             category = discord.utils.get(guild.categories, id=category_id)
         discord_channel = await guild.create_text_channel(name, category=category, **kwargs)
-        channel_obj.id = discord_channel.id
-        channel_obj.category_id = category_id
-        self.channels[key] = channel_obj
+        self.channels[key] = discord_channel  # Guarda el canal real de Discord
         return discord_channel
 
     def get_channel_by_key(self, key):

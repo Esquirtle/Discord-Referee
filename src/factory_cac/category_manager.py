@@ -15,10 +15,11 @@ class Category:
     def set_name(self, name):
         self.name = name
 class CategoryManager:
-    def __init__(self, bot, lang_manager: LanguageManager):
+    def __init__(self, bot, lang_manager):
         self.bot = bot
         self.lang_manager = lang_manager
-        self.categories: dict[str, Category] = {}
+        self.categories = {}
+
 
     def __repr__(self):
         return f"<CategoryManager bot={self.bot} lang_manager={self.lang_manager}>"

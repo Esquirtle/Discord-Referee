@@ -2,7 +2,7 @@ import threading
 from .console_utils import mostrar_servidores, seleccionar_servidor
 from .setup_commands import setup_db
 from bot.guild import GuildObject
-
+import asyncio
 class ConsoleManager(threading.Thread):
     def __init__(self, bot, connected_guilds):
         super().__init__(daemon=True)
@@ -11,6 +11,7 @@ class ConsoleManager(threading.Thread):
         self.connected_guilds = connected_guilds
         self.current_guild = None
         self.guild_language = {}  # guild_id: lang_code
+        self.object_guild = None
 
     def run(self):
         print("Consola de comandos iniciada. Escribe 'exit' para salir.")
@@ -63,37 +64,31 @@ class ConsoleManager(threading.Thread):
                 lang = parts[2]
                 self.guild_language[getattr(self.current_guild, 'id', self.current_guild)] = lang
                 self.build_guild_object(self.current_guild, lang)
-                print(f"Referee configurado para el servidor con idioma: {lang}")
+                # Ejecutar la función async correctamente
+                success = asyncio.run(self.async_build())
+                if success:
+                    print(f"Referee configurado para el servidor con idioma: {lang}")
             else:
                 print("Uso: setup referee [eng|esp]")
-        elif command == "show lang":
-            gid = getattr(self.current_guild, 'id', self.current_guild)
-            lang = self.guild_language.get(gid, "eng")
-            print(f"Idioma actual de la guild: {lang}")
-        else:
-            print(f"Comando desconocido: {command}")
-
+    async def async_build(self) -> bool:
+        # Usa el id de la guild para obtener el objeto real de Discord
+        guild_id = self.object_guild.get_id()
+        discord_guild = self.bot.get_guild(guild_id)
+        await self.object_guild.server_builder.build_server(discord_guild)
+        return True
     def build_guild_object(self, guild, lang_code=None):
-        object_guild = GuildObject(bot=self.bot)
-        # Construye el objeto GuildObject y asigna el idioma
+        # guild es el objeto discord.Guild real
         if lang_code is None:
             gid = getattr(guild, 'id', guild)
             lang_code = self.guild_language.get(gid, "eng")
-        object_guild.set_id(guild.id if hasattr(guild, 'id') else guild)
-        object_guild.set_name(guild.name if hasattr(guild, 'name') else guild)
-        object_guild.set_version("1.0")
-        object_guild.set_channels(guild.channels if hasattr(guild, 'channels') else [])
-        object_guild.set_members(guild.members if hasattr(guild, 'members') else [])
-        object_guild.set_roles(guild.roles if hasattr(guild, 'roles') else [])
-        object_guild.set_categories(guild.categories if hasattr(guild, 'categories') else [])
-        # Asigna el idioma usando LanguageManager
+        self.object_guild = GuildObject(self.bot, discord_guild=guild, lang_code=lang_code)
+        # Configura el idioma si es necesario
         import os
         locales_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'languages', 'locales')
-        object_guild.lang_manager.lang_dir = locales_dir
-        object_guild.lang_manager.lang_code = lang_code
-        print(f"Construido objeto Guild: {object_guild} con idioma {lang_code}")
-        self.bot.set_guild_object(object_guild)
-        return
+        self.object_guild.lang_manager.lang_dir = locales_dir
+        self.object_guild.lang_manager.lang_code = lang_code
+        print(f"Construido objeto Guild: {self.object_guild}")
+        self.bot.set_guild_object(self.object_guild)
 
 def start_console(bot):
     console = ConsoleManager(bot)

@@ -3,7 +3,40 @@ import discord
 class ViewGenerator:
     def __init__(self, lang_manager):
         self.lang_manager = lang_manager
-
+    def from_config(self, config, button_handlers=None, modal_map=None):
+        import discord
+        view = discord.ui.View()
+        # Normaliza config a lista de botones
+        if isinstance(config, dict):
+            buttons = config.get("buttons", list(config.values()))
+        elif isinstance(config, list):
+            buttons = config
+        else:
+            buttons = []
+    
+        for btn_data in buttons:
+            label = self.lang_manager.get_text(btn_data.get("label", ""))
+            style = getattr(discord.ButtonStyle, btn_data.get("style", "primary"), discord.ButtonStyle.primary)
+            custom_id = btn_data.get("custom_id", None)
+            button = discord.ui.Button(label=label, style=style, custom_id=custom_id)
+    
+            async def on_click(interaction, cid=custom_id):
+                if modal_map and cid in modal_map:
+                    modal = modal_map[cid]
+                    if callable(modal):
+                        modal = modal()
+                    await interaction.response.send_modal(modal)
+                else:
+                    await interaction.response.send_message("No modal assigned.", ephemeral=True)
+    
+            button.callback = on_click
+            view.add_item(button)
+        return view
+    def fusion_modal(self, view, modal):
+        self.view = view
+        self.modal = modal
+        view.modal = modal
+        return view
     def from_panel_json(self, panel_name, panels_dir=None, button_handlers=None, modal_map=None):
         """
         Carga los botones desde el archivo JSON del panel indicado.

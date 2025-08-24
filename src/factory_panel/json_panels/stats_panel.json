@@ -1,0 +1,30 @@
+{
+    "embed": {
+        "title": "stats_panel_title",
+        "description": "stats_panel_description",
+        "color": 3447003,
+        "fields": [],
+        "footer": "footer"
+    },
+    "buttons": {
+        "buttons": [
+            {
+                "label": "stats_button_mystats",
+                "style": "success",
+                "custom_id": "stats_mystats_btn"
+            },
+            {
+                "label": "stats_button_history",
+                "style": "primary",
+                "custom_id": "stats_history_btn"
+            },
+            {
+                "label": "stats_button_ranking",
+                "style": "secondary",
+                "custom_id": "stats_ranking_btn"
+            }
+        ]
+    },
+    "modals": {
+    }
+}

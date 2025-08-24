@@ -39,8 +39,8 @@ class DiscordBot(commands.Bot):
                     print(f"[ERROR] No se pudo cargar {module_name}: {e}")
     def set_guild_object(self, guild_object):
         self.guild_object = guild_object
-    def get_guild(self):
-        guild = self.guild_object.get_guild()
+    def get_guild_id(self):
+        guild = self.guild_object.get_id()
         return guild
     async def on_ready(self):
         await self.load_commands()
@@ -49,6 +49,11 @@ class DiscordBot(commands.Bot):
         # Llenar la lista de guilds conectados
         self.connected_guilds.clear()
         self.connected_guilds.extend(list(self.guilds))
+        if not self.guild_object:
+            self.guild_object = GuildObject(bot=self)
+        # Por ejemplo, asigna el primer guild conectado
+        if self.guilds:
+            self.guild_object.set_discord_guild(self.guilds[0])
         if not self.console:
             self.console = ConsoleManager(bot=self, connected_guilds=self.connected_guilds)
             self.console.start()
@@ -58,13 +63,6 @@ class DiscordBot(commands.Bot):
         if channel:
             await channel.send(embed=embed, view=view)
     #funcion para crear categorias
-    async def create_category(self, name, **kwargs):
-        ctx = self.get_context()
-        return await ctx.create_category(name, **kwargs)
-    #funcion para crear canales
-    async def create_channel(self, name, **kwargs):
-        ctx = self.get_context()
-        return await ctx.create_channel(name, **kwargs)
     #funcion para crear canal en categoria
     async def create_channel_in(self, category_id, name, **kwargs):
         category = self.ctx.category_manager.get_category_by_id(category_id)

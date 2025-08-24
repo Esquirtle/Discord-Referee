@@ -2,34 +2,51 @@
     "ServerConfig": {
         "categories": {
             "register": "Register",
-            "scrim": "Scrims",
+            "scrims": "Scrims",
+            "tournaments": "Tournaments",
             "stats": "Stats"
         },
         "channels": {
             "register.panel": "Register Panel",
-            "scrim.panel": "Scrims",
-            "stats.panel": "Stats"
+            "scrims.panel": "Scrims Panel",
+            "scrims.active-scrims": "Active Scrims",
+            "scrims.lfg-board": "LFG Board",
+            "tournaments.panel": "Tournaments Panel",
+            "stats.panel": "Stats Panel"
         }
     },
-    "panel_title": "Example Panel",
-    "panel_description": "This is an example panel.",
-    "panel_footer": "This is the footer of the example panel.",
-    "modal_title": "Example Modal",
-    "modal_description": "This is an example modal.",
-    "modal_field1" : "This is a field in the example modal.",
-    "greeting": "Hello!",
-    "farewell": "Goodbye!",
-    "welcome_user": "Welcome, {username}!",
-    "error_not_found": "The requested item was not found.",
-    "register_panel_title": "Register",
-    "register_panel_description": "Register your Steam ID to participate.",
-    "register_panel_footer": "Please use a valid Steam ID.",
-    "register_button_label": "Register",
-    "register_modal_title": "Steam Registration",
+    "footer": "Powered by Discord-Referee",
+
+    "scrims_panel_title": "Welcome to the Scrims Panel!",
+    "scrims_panel_description": "🎮 Ready to play? Here you can join an existing scrim or create your own match for others to join!\n\nUse the buttons below to participate, and have fun competing with the community.\n\n**Need help? Ask a moderator or check the #help channel.** \n\n *Stats can be tracked through the Stats Panel*",
+
+    "scrims_button_create": "Create Scrim",
+    "scrims_button_join": "Join Scrim",
+
+    "scrims_create_modal_title": "Create a Scrim Match",
+    "scrims_modal_match_name": "Match Name",
+    "scrims_modal_match_name_placeholder": "Enter the name for your scrim match",
+
+    "scrims_join_modal_title": "Join a Scrim Match",
+    "scrims_modal_join_code": "Join Code",
+    "scrims_modal_join_code_placeholder": "Enter the join code provided by the host",
+
+    "register_panel_title": "Welcome to Goalier!",
+    "register_panel_description": "👋 Hello player! To participate in our leagues and scrims, please register your Steam ID. You can also update it at any time or delete your profile if needed.\n\n**Ready to get started?** Use the buttons below!\n\n*Your data is safe and only used for tournament participation.*",
+
+    "register_button_signup": "Register Steam ID",
+    "register_button_delete": "Delete Profile",
+    "register_button_modify": "Modify Profile",
+
+    "register_modal_title": "Register Your Steam ID",
     "register_modal_steamid_label": "Steam ID",
     "register_modal_steamid_placeholder": "Enter your Steam ID",
-    "register_success": "Registration successful! Your Steam ID has been recorded.",
-    "button_ok": "OK",
-    "button_cancel": "Cancel"
+
+    "stats_panel_title": "Stats",
+    "stats_panel_description": "📊 Here you can view your personal statistics, including match history and performance metrics.",
+
+    "stats_button_mystats": "View Stats",
+    "stats_button_history": "View Match History",
+    "stats_button_ranking": "See Ranking"
 
 }

@@ -4,19 +4,52 @@
         "description": "register_panel_description",
         "color": 3447003,
         "fields": [],
-        "footer": "register_panel_footer"
+        "footer": "footer"
     },
     "buttons": {
         "buttons": [
             {
-                "label": "register_button_label",
+                "label": "register_button_signup",
                 "style": "success",
                 "custom_id": "register_btn"
+            },
+            {
+                "label": "register_button_delete",
+                "style": "danger",
+                "custom_id": "register_delete_btn"
+            },
+            {
+                "label": "register_button_modify",
+                "style": "secondary",
+                "custom_id": "register_modify_btn"
             }
         ]
     },
-    "modal": {
-        "title": "register_modal_title",
+    "modals": {
+        "register_btn": {
+            "title": "register_panel_title",
+            "fields": [
+                {
+                    "label": "register_modal_steamid_label",
+                    "placeholder": "register_modal_steamid_placeholder",
+                "required": true,
+                "style": "short"
+            }
+        ]
+    },
+    "register_delete_btn": {
+        "title": "register_panel_title",
+        "fields": [
+            {
+                "label": "register_modal_steamid_label",
+                "placeholder": "register_modal_steamid_placeholder",
+                "required": true,
+                "style": "short"
+            }
+        ]
+    },
+    "register_modify_btn": {
+        "title": "register_panel_title",
         "fields": [
             {
                 "label": "register_modal_steamid_label",
@@ -26,4 +59,5 @@
             }
         ]
     }
+}
 }

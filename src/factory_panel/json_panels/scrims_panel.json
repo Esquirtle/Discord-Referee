@@ -1,0 +1,47 @@
+{
+    "embed": {
+        "title": "scrims_panel_title",
+        "description": "scrims_panel_description",
+        "color": 3447003,
+        "fields": [],
+        "footer": "footer"
+    },
+    "buttons": {
+        "buttons": [
+            {
+                "label": "scrims_button_create",
+                "style": "success",
+                "custom_id": "scrim_create_btn"
+            },
+            {
+                "label": "scrims_button_join",
+                "style": "primary",
+                "custom_id": "scrim_join_btn"
+            }
+        ]
+    },
+    "modals": {
+        "scrim_create_btn": {
+            "title": "scrims_create_modal_title",
+            "fields": [
+                {
+                    "label": "scrims_modal_match_name",
+                    "placeholder": "scrims_modal_match_name_placeholder",
+                    "required": true,
+                    "style": "short"
+                }
+            ]
+        },
+        "scrim_join_btn": {
+            "title": "scrims_join_modal_title",
+            "fields": [
+                {
+                    "label": "scrims_modal_join_code",
+                    "placeholder": "scrims_modal_join_code_placeholder",
+                    "required": true,
+                    "style": "short"
+                }
+            ]
+        }
+    }
+}

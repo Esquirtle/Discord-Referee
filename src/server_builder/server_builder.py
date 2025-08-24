@@ -15,6 +15,21 @@ class ServerBuilder(commands.Cog):
         print("Building server with the following configuration:")
         print(f"Panel Manager: {self.panel_manager}")
         print(f"CaC Factory: {self.cac_factory}")
+        # Primero crea la estructura de canales/categorías
         await self.cac_factory.setup(guild)
-        # Ejemplo de cómo podrías usar el panel_manager para cargar un panel
-    
+        # Luego obtiene los mensajes a enviar
+        panel_messages = self.panel_manager.get_all_panel_messages(self.cac_factory.channel_manager)
+        for channel, embed, view in panel_messages:
+            await channel.send(embed=embed, view=view)
+            print(f"[ServerBuilder] Enviado panel a canal '{channel.name}'")
+
+    def check_cac_factory(self):
+        return self.cac_factory is not None
+    def check_panel_manager(self):
+        return self.panel_manager is not None
+    def __repr__(self):
+        return (f" \n"
+                f"<ServerBuilder \n"
+                f" lang_manager={self.lang_manager.lang_code},\n"
+                f" panel_manager={self.check_panel_manager()},\n"
+                f" cac_factory={self.check_cac_factory()}>")

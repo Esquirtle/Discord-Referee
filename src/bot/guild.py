@@ -1,84 +1,53 @@
+import discord
 from languages.lang_manager import LanguageManager
 from factory_cac.cac_factory import CaCFactory
 from factory_panel.embeds.embed_gen import EmbedGenerator
 from server_builder.server_builder import ServerBuilder
-
 class GuildObject:
-    def __init__(self, bot):
+    def __init__(self, bot, discord_guild : discord.Guild = None, lang_code='eng'):
         self.bot = bot
-        self.id = None
-        self.name = None
-        self.members = []
-        self.channels = []
-        self.categories = []
-        self.roles = []
+        self.discord_guild = discord_guild  # Objeto discord.Guild real
+        self.id = discord_guild.id if discord_guild else None
+        self.name = discord_guild.name if discord_guild else None
+        self.lang_manager = LanguageManager(lang_code=lang_code)
+        self.server_builder = ServerBuilder(self.lang_manager, bot)
+        self.embed_gen = None  # Se puede setear después si es necesario
         self.version = None
         self.config = None
-        self.lang_manager : LanguageManager = LanguageManager(lang_code='eng')
-        self.server_builder : ServerBuilder = ServerBuilder(self.lang_manager, self.bot)
+
+    def set_discord_guild(self, discord_guild):
+        self.discord_guild = discord_guild
+        self.id = discord_guild.id
+        self.name = discord_guild.name
+
+    def get_discord_guild(self):
+        return self.discord_guild
 
     def __str__(self):
         return (
-            f"GuildObject\n"
-            f"^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"
+            f"GuildObject \n"
             f"  id={self.id},\n"
             f"  name={self.name},\n"
             f"  version={self.version},\n"
             f"  config={self.config},\n"
-            f"^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+            f"  discord_guild={self.discord_guild},\n"
+
         )
     def get_id(self) -> int:
         return self.id
-    def get_name(self) -> str:
+    def get_name(self):
         return self.name
-    def get_members(self) -> list:
-        return self.members
-    def get_channels(self) -> list:
-        return self.channels
-    def get_categories(self) -> list:
-        return self.categories
-    def get_roles(self) -> list:
-        return self.roles
-    def get_config(self) -> dict:
+    def get_config(self):
         return self.config
-    def get_cac_factory(self) -> CaCFactory:
+    def get_cac_factory(self):
         return self.cac_factory
-    def get_lang_manager(self) -> LanguageManager:
+    def get_lang_manager(self):
         return self.lang_manager
-    def set_cac_factory(self, cac_factory: CaCFactory):
+    def set_cac_factory(self, cac_factory):
         self.cac_factory = cac_factory
-    def set_embed_gen(self, embed_gen: EmbedGenerator):
+    def set_embed_gen(self, embed_gen):
         self.embed_gen = embed_gen
-    def set_id(self, guild_id):
-        self.id = guild_id
-    def set_name(self, guild_name):
-        self.name = guild_name
-    def add_member(self, member):
-        self.members.append(member)
-    def remove_member(self, member):
-        self.members.remove(member)
-    def add_category(self, category):
-        self.categories.append(category)
-    def remove_category(self, category):
-        self.categories.remove(category)
-    def add_channel(self, channel):
-        self.channels.append(channel)
-    def remove_channel(self, channel):
-        self.channels.remove(channel)
-    def add_role(self, role):
-        self.roles.append(role)
-    def remove_role(self, role):
-        self.roles.remove(role)
     def set_version(self, version):
         self.version = version
     def set_config(self, config):
         self.config = config
-
-    def set_channels(self, channels):
-        self.channels = list(channels)
-    def set_members(self, members):
-        self.members = list(members)
-    def set_roles(self, roles):
-        self.roles = list(roles)
-    def set_categories(self, categories):
-        self.categories = list(categories)
