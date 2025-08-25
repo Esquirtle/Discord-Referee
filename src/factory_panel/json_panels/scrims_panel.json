@@ -29,6 +29,12 @@
                     "placeholder": "scrims_modal_match_name_placeholder",
                     "required": true,
                     "style": "short"
+                },
+                {
+                    "label": "scrims_modal_match_code",
+                    "placeholder": "scrims_modal_match_code_placeholder",
+                    "required": true,
+                    "style": "short"
                 }
             ]
         },

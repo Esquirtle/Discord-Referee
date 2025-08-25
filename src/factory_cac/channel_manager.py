@@ -32,6 +32,13 @@ class ChannelManager:
         discord_channel = await guild.create_text_channel(name, category=category, **kwargs)
         self.channels[key] = discord_channel  # Guarda el canal real de Discord
         return discord_channel
+    async def create_voice_channel(self, key, name, category_id=None, guild=None, **kwargs):
+        category = None
+        if category_id:
+            category = discord.utils.get(guild.categories, id=category_id)
+        discord_voice_channel = await guild.create_voice_channel(name, category=category, **kwargs)
+        self.channels[key] = discord_voice_channel  # Guarda el canal real de Discord
+        return discord_voice_channel
 
     def get_channel_by_key(self, key):
         return self.channels.get(key)

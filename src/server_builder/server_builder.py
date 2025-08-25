@@ -22,7 +22,11 @@ class ServerBuilder(commands.Cog):
         for channel, embed, view in panel_messages:
             await channel.send(embed=embed, view=view)
             print(f"[ServerBuilder] Enviado panel a canal '{channel.name}'")
-
+    async def create_scrim_channel(self, scrim):
+        scrim_name = scrim.get_match_name()
+        channel = await self.cac_factory.create_channel(name=scrim_name)
+        await channel.send(f"Nuevo scrim creado: {scrim_name}")
+        return channel
     def check_cac_factory(self):
         return self.cac_factory is not None
     def check_panel_manager(self):

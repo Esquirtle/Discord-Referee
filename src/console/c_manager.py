@@ -58,6 +58,9 @@ class ConsoleManager(threading.Thread):
         # Comandos personalizados
         if command == "guilds":
             print(f"Servidores conectados: {self.bot.get_guild()}")
+        elif command == "clear":
+            print(f"Limpiando servidor: {self.current_guild}")
+            await self.object_guild.clear_data_()
         elif command == "status":
             print(f"Bot conectado: {self.bot.is_ready()}")
         elif command == "setup db":

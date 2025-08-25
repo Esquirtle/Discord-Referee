@@ -49,7 +49,7 @@ class CaCFactory():
         server_config = self.lang_manager.translations.get("ServerConfig", {})
         categories_dict = server_config.get("categories", {})
         channels_dict = server_config.get("channels", {})
-
+        voice_channels_dict = server_config.get("voice_channels", {})
         # Crear categorías y guardar sus ids
         category_ids = {}
         print("[CaCFactory] Creando categorías:")
@@ -70,15 +70,23 @@ class CaCFactory():
             print(f"  Creando canal '{chan_key}': '{chan_name}' en categoría ID: {category_id}")
             discord_channel = await self.channel_manager.create_channel(chan_key, chan_name, category_id=category_id, guild=discord_guild)
             print(f"    -> ID Discord: {discord_channel.id}")
+        # Crear canales de voz y asociarlos a la categoría correspondiente si aplica
+        for chan_key, chan_name in voice_channels_dict.items():
+            if "." in chan_key:
+                cat_key = chan_key.split(".")[0]
+                category_id = category_ids.get(cat_key)
+            else:
+                category_id = None
+            print(f"  Creando canal de voz '{chan_key}': '{chan_name}' en categoría ID: {category_id}")
+            discord_voice_channel = await self.channel_manager.create_voice_channel(chan_key, chan_name, category_id=category_id, guild=discord_guild)
+            print(f"    -> ID Discord: {discord_voice_channel.id}")
 
     def __str__(self):
         return (
             f"CaCFactory\n"
-            f"^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"
             f"  guild={self.guild},\n"
-            f"  channel_manager={self.channel_manager},\n"
-            f"  category_manager={self.category_manager},\n"
-            f"^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+            f"  channel_manager={self.channel_manager.lang_manager.lang_code},\n"
+            f"  category_manager={self.category_manager.lang_manager.lang_code},\n"
         )
     
     # Channel operations

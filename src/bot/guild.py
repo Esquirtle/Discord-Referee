@@ -14,6 +14,15 @@ class GuildObject:
         self.embed_gen = None  # Se puede setear después si es necesario
         self.version = None
         self.config = None
+    async def clear_data_(self):
+        for channel in self.discord_guild.channels:
+            if isinstance(channel, discord.TextChannel):
+                await channel.delete()
+        for category in self.discord_guild.categories:
+            if isinstance(category, discord.CategoryChannel):
+                await category.delete()
+        for voice in self.discord_guild.voice_channels:
+            await voice.delete()
 
     def set_discord_guild(self, discord_guild):
         self.discord_guild = discord_guild

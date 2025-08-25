@@ -4,7 +4,8 @@
             "register": "Register",
             "scrims": "Scrims",
             "tournaments": "Tournaments",
-            "stats": "Stats"
+            "stats": "Stats",
+            "general": "General"
         },
         "channels": {
             "register.panel": "Register Panel",
@@ -13,6 +14,11 @@
             "scrims.lfg-board": "LFG Board",
             "tournaments.panel": "Tournaments Panel",
             "stats.panel": "Stats Panel"
+        },
+        "voice_channels": {
+            "scrims.voice": "Scrims Voice",
+            "tournaments.voice": "Tournaments Voice",
+            "general.voice": "General Voice"
         }
     },
     "footer": "Powered by Discord-Referee",
@@ -26,7 +32,7 @@
     "scrims_create_modal_title": "Create a Scrim Match",
     "scrims_modal_match_name": "Match Name",
     "scrims_modal_match_name_placeholder": "Enter the name for your scrim match",
-
+    "scrims_modal_new_success" : "Scrim created successfully! \n Share your **{scrim.id}** with others to let them join your match.\n Your scrim can be managed through the panel in {scrim.channel}.",
     "scrims_join_modal_title": "Join a Scrim Match",
     "scrims_modal_join_code": "Join Code",
     "scrims_modal_join_code_placeholder": "Enter the join code provided by the host",

@@ -4,7 +4,8 @@
             "register": "Registro",
             "scrims": "Scrims",
             "tournaments": "Torneos",
-            "stats": "Estadísticas"
+            "stats": "Estadísticas",
+            "general": "General"
         },
         "channels": {
             "register.panel": "Panel de Registro",
@@ -13,6 +14,11 @@
             "scrims.lfg-board": "Tablón LFG",
             "tournaments.panel": "Panel de Torneos",
             "stats.panel": "Panel de Estadísticas"
+        },
+        "voice_channels": {
+            "scrims.voice": "Sala de Scrims",
+            "tournaments.voice": "Sala de Torneos",
+            "general.voice": "Sala General"
         }
     },
     "footer": "Desarrollado por Discord-Referee",
