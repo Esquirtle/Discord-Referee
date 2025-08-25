@@ -45,17 +45,26 @@ class TestCommands(commands.Cog):
         )
         await ctx.send(embed=embed, view=view)
         # Si quieres probar el modal, deberías usarlo en una interacción, no en un comando de texto
-
-    @commands.command(name='test_register_panel')
-    async def test_register_panel(self, ctx: commands.Context):
-        from factory_panel.panel_manager import PanelManager
-        from factory_panel.buttons.view_gen import ViewGenerator
-        panel_manager = PanelManager(self.bot.guild_object.get_lang_manager())
-        embed = panel_manager.embed_gen.from_config(panel_manager.load_panel_config("register_panel").get("embed", {}))
-        # Usar ViewGenerator para cargar la view desde el panel y handlers centralizados
-        view_gen = ViewGenerator(self.bot.guild_object.get_lang_manager())
-        view = view_gen.from_panel_json("register_panel")
+    @commands.command(name='get_panel')
+    async def get_panel(self, ctx: commands.Context, panel_name: str):
+        panel_request = ctx.message.content.split(' ', 1)
+        panel_name = panel_request[1] if len(panel_request) > 1 else None
+        panel_manager = self.bot.guild_object.server_builder.panel_manager
+        embed = panel_manager.embed_gen.from_config(panel_manager.load_panel_config(panel_name).get("embed", {}))
+        view = panel_manager.button_gen.from_config(
+            panel_manager.load_panel_config(panel_name).get("buttons", {}),
+            button_handlers=None,
+            modal_map={}
+        )
         await ctx.send(embed=embed, view=view)
+    @commands.command(name='install_panel')
+    async def install_panel(self, ctx: commands.Context):
+        panel_manager = PanelManager(self.bot.guild_object.get_lang_manager())
+        embed = panel_manager.embed_gen.from_config(panel_manager.load_panel_config("install_panel").get("embed", {}))
+        view_gen = ViewGenerator(self.bot.guild_object.get_lang_manager())
+        view = view_gen.from_panel_json("install_panel")
+        await ctx.send(embed=embed, view=view)
+
     @commands.command(name='test_builder')
     async def test_builder(self, ctx: commands.Context):
         
@@ -79,7 +88,6 @@ class TestCommands(commands.Cog):
 
         await ctx.send(embed=myembed.embed, view=myview)
     @commands.command(name='test_server_builder')
-    
     async def test_server_builder(self, ctx: commands.Context):
         for channel in ctx.guild.channels:
             await channel.delete()

@@ -4,8 +4,10 @@ class ModalGenerator:
     def __init__(self, lang_manager):
         self.lang_manager = lang_manager
 
-    def from_config(self, config, on_submit_callback=None):
+    def from_config(self, config, custom_id=None):
         lang_manager = self.lang_manager
+        from .modal_handlers import get_modal_submit_handler
+    
         class CustomModal(discord.ui.Modal):
             def __init__(self):
                 super().__init__(title=lang_manager.get_text(config.get("title", "")))
@@ -18,8 +20,12 @@ class ModalGenerator:
                             style=getattr(discord.TextStyle, field.get("style", "short").upper(), discord.TextStyle.short)
                         )
                     )
+    
             async def on_submit(self, interaction: discord.Interaction):
-                if on_submit_callback:
-                    await on_submit_callback(self, interaction)
-                # Si no hay callback, no hace nada
+                handler = get_modal_submit_handler(custom_id)
+                if handler:
+                    await handler(self, interaction)
+                else:
+                    await interaction.response.send_message("No action defined for this modal.", ephemeral=True)
+    
         return CustomModal()

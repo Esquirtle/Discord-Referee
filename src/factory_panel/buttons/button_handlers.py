@@ -1,6 +1,7 @@
 # Handler para el botón register_btn
 from database.db_manager import DatabaseManager
 from languages.lang_manager import LanguageManager
+from bot.guild import GuildObject
 
 async def handle_register_btn(interaction: 'discord.Interaction'):
     # Obtener contexto y managers
@@ -40,7 +41,8 @@ import discord
 
 async def handle_ok_btn(interaction: discord.Interaction):
     await interaction.response.send_message("OK button pressed!", ephemeral=True)
-
+async def handle_install_btn(interaction: discord.Interaction):
+    await interaction.response.send_message("Install button pressed!", ephemeral=True)
 async def handle_cancel_btn(interaction: discord.Interaction):
     await interaction.response.send_message("Cancel button pressed!", ephemeral=True)
 
@@ -50,6 +52,7 @@ BUTTON_ACTIONS = {
     "ok_btn": handle_ok_btn,
     "cancel_btn": handle_cancel_btn,
     "register_btn": handle_register_btn,
+    "install_btn" : handle_install_btn
 }
 
 def get_button_handler(custom_id):

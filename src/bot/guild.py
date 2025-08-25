@@ -19,7 +19,10 @@ class GuildObject:
         self.discord_guild = discord_guild
         self.id = discord_guild.id
         self.name = discord_guild.name
-
+    async def setup_referee(self):
+        # Lógica para configurar el referee
+        await self.server_builder.build_server(self.discord_guild)
+        pass
     def get_discord_guild(self):
         return self.discord_guild
 

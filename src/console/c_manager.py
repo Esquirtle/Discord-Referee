@@ -37,7 +37,11 @@ class ConsoleManager(threading.Thread):
                         print(f"Servidor actual: {getattr(self.current_guild, 'name', self.current_guild)} (ID: {getattr(self.current_guild, 'id', self.current_guild)})")
                         self.change_guild(self.current_guild)
                 elif command:
-                    self.handle_command(command)
+                    # Ejecuta el comando en el event loop del bot
+                    future = asyncio.run_coroutine_threadsafe(
+                        self.handle_command(command), self.bot.loop
+                    )
+                    result = future.result()  # Espera el resultado si es necesario
             except (EOFError, KeyboardInterrupt):
                 print("\nCerrando consola...")
                 self.running = False
@@ -50,7 +54,7 @@ class ConsoleManager(threading.Thread):
         else:
             print("Servidor no conectado.")
 
-    def handle_command(self, command):
+    async def handle_command(self, command):
         # Comandos personalizados
         if command == "guilds":
             print(f"Servidores conectados: {self.bot.get_guild()}")
@@ -64,18 +68,12 @@ class ConsoleManager(threading.Thread):
                 lang = parts[2]
                 self.guild_language[getattr(self.current_guild, 'id', self.current_guild)] = lang
                 self.build_guild_object(self.current_guild, lang)
-                # Ejecutar la función async correctamente
-                success = asyncio.run(self.async_build())
+                success = await self.object_guild.setup_referee()
                 if success:
                     print(f"Referee configurado para el servidor con idioma: {lang}")
             else:
                 print("Uso: setup referee [eng|esp]")
-    async def async_build(self) -> bool:
-        # Usa el id de la guild para obtener el objeto real de Discord
-        guild_id = self.object_guild.get_id()
-        discord_guild = self.bot.get_guild(guild_id)
-        await self.object_guild.server_builder.build_server(discord_guild)
-        return True
+
     def build_guild_object(self, guild, lang_code=None):
         # guild es el objeto discord.Guild real
         if lang_code is None:

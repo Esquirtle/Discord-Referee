@@ -1,0 +1,58 @@
+{
+    "embed": {
+        "title": "install_panel_title",
+        "description": "install_panel_description",
+        "color": 3066993,
+        "fields": [
+            {
+                "name": "install_panel_field_info",
+                "value": "install_panel_field_info_value",
+                "inline": false
+            }
+        ],
+        "footer": "install_panel_footer"
+    },
+    "buttons": {
+        "buttons": [
+            {
+                "label": "install_button_install",
+                "style": "success",
+                "custom_id": "install_btn"
+            },
+            {
+                "label": "install_button_check",
+                "style": "primary",
+                "custom_id": "check_btn"
+            },
+            {
+                "label": "install_button_delete",
+                "style": "danger",
+                "custom_id": "delete_btn"
+            }
+        ]
+    },
+    "modals": {
+        "install_btn": {
+            "title": "install_modal_title",
+            "fields": [
+                {
+                    "label": "install_modal_path_label",
+                    "placeholder": "install_modal_path_placeholder",
+                    "required": true,
+                    "style": "short"
+                }
+            ]
+        },
+        "delete_btn": {
+            "title": "delete_modal_title",
+            "fields": [
+                {
+                    "label": "delete_modal_confirm_label",
+                    "placeholder": "delete_modal_confirm_placeholder",
+                    "required": true,
+                    "style": "short"
+                }
+            ]
+        }
+    }
+}

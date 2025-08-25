@@ -50,7 +50,7 @@ class PanelManager:
         modals_config = config.get("modals", {})
         modal_map = {}
         for custom_id, modal_conf in modals_config.items():
-            modal_map[custom_id] = self.modal_gen.from_config(modal_conf)
+            modal_map[custom_id] = self.modal_gen.from_config(modal_conf, custom_id=custom_id)
         buttons = config.get("buttons", {})
         view = self.button_gen.from_config(buttons, modal_map=modal_map)
         return {"embed": embed, "buttons": view, "modal_map": modal_map}

@@ -1,14 +1,66 @@
 {
-    "greeting": "¡Hola!",
-    "farewell": "¡Adiós!",
-    "welcome_user": "¡Bienvenido, {username}!",
-    "error_not_found": "El elemento solicitado no fue encontrado.",
-    "register_panel_title": "Registro",
-    "register_panel_description": "Registra tu Steam ID para participar.",
-    "register_panel_footer": "Por favor, usa un Steam ID válido.",
-    "register_button_label": "Registrarse",
-    "register_modal_title": "Registro de Steam",
+    "ServerConfig": {
+        "categories": {
+            "register": "Registro",
+            "scrims": "Scrims",
+            "tournaments": "Torneos",
+            "stats": "Estadísticas"
+        },
+        "channels": {
+            "register.panel": "Panel de Registro",
+            "scrims.panel": "Panel de Scrims",
+            "scrims.active-scrims": "Scrims Activos",
+            "scrims.lfg-board": "Tablón LFG",
+            "tournaments.panel": "Panel de Torneos",
+            "stats.panel": "Panel de Estadísticas"
+        }
+    },
+    "footer": "Desarrollado por Discord-Referee",
+
+    "scrims_panel_title": "¡Bienvenido al Panel de Scrims!",
+    "scrims_panel_description": "🎮 ¿Listo para jugar? Aquí puedes unirte a un scrim existente o crear tu propia partida para que otros se unan.\n\nUsa los botones de abajo para participar y diviértete compitiendo con la comunidad.\n\n*¿Necesitas ayuda? Pregunta a un moderador o revisa el canal #ayuda.*",
+
+    "scrims_button_create": "Crear Scrim",
+    "scrims_button_join": "Unirse a Scrim",
+
+    "scrims_create_modal_title": "Crear una Partida de Scrim",
+    "scrims_modal_match_name": "Nombre de la Partida",
+    "scrims_modal_match_name_placeholder": "Introduce el nombre para tu partida de scrim",
+
+    "scrims_join_modal_title": "Unirse a una Partida de Scrim",
+    "scrims_modal_join_code": "Código de Unión",
+    "scrims_modal_join_code_placeholder": "Introduce el código proporcionado por el anfitrión",
+
+    "register_panel_title": "¡Bienvenido a Goalier!",
+    "register_panel_description": "👋 ¡Hola jugador! Para participar en nuestras ligas y scrims, por favor registra tu Steam ID. También puedes actualizarlo en cualquier momento o eliminar tu perfil si lo deseas.\n\n**¿Listo para comenzar?** Usa los botones de abajo.\n\n*Tus datos están seguros y solo se usan para la participación en torneos.*",
+
+    "register_button_signup": "Registrar Steam ID",
+    "register_button_delete": "Eliminar Perfil",
+    "register_button_modify": "Modificar Perfil",
+
+    "register_modal_title": "Registrar tu Steam ID",
     "register_modal_steamid_label": "Steam ID",
     "register_modal_steamid_placeholder": "Introduce tu Steam ID",
-    "register_success": "¡Registro exitoso! Tu Steam ID ha sido guardado."
+
+    "stats_panel_title": "Estadísticas",
+    "stats_panel_description": "📊 Aquí puedes ver tus estadísticas personales, incluyendo historial de partidas y métricas de rendimiento.",
+
+    "stats_button_mystats": "Ver Estadísticas",
+    "stats_button_history": "Ver Historial de Partidas",
+    "stats_button_ranking": "Ver Ranking",
+
+    "install_panel_title": "Panel de Instalación",
+    "install_panel_description": "🛠️ ¡Bienvenido! Usa este panel para instalar, comprobar o eliminar la configuración del bot. Por favor, sigue las instrucciones a continuación.",
+    "install_panel_field_info": "¿Cómo funciona?",
+    "install_panel_field_info_value": "Haz clic en **Instalar** para configurar el bot, en **Comprobar** para verificar la instalación, o en **Eliminar** para borrar todos los datos de configuración.",
+    "install_panel_footer": "Contacta con un administrador si necesitas ayuda con la instalación.",
+    "install_button_install": "Instalar",
+    "install_button_check": "Comprobar",
+    "install_button_delete": "Eliminar",
+    "install_modal_title": "Instalar Bot",
+    "install_modal_path_label": "Ruta de Instalación",
+    "install_modal_path_placeholder": "Introduce la ruta donde se debe instalar el bot",
+    "delete_modal_title": "Eliminar Configuración",
+    "delete_modal_confirm_label": "Escribe ELIMINAR para confirmar",
+    "delete_modal_confirm_placeholder": "ELIMINAR"
 }

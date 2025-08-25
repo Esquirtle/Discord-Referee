@@ -1,5 +1,7 @@
+import asyncio
 import sys
 import os
+import threading
 import discord
 from discord.ext import commands
 
@@ -22,9 +24,8 @@ class DiscordBot(commands.Bot):
         self.guild_object = None
         self.db_manager = DatabaseManager()
         self.connected_guilds = []  # Se llenará en on_ready
-        self.console = None
         self.guild_object = None
-    # No llamar aquí, se llamará en on_ready
+        self.console_manager = None
     async def load_commands(self):
         # Cargar automáticamente todos los módulos de src/commands excepto __init__.py
         import os
@@ -53,10 +54,7 @@ class DiscordBot(commands.Bot):
             self.guild_object = GuildObject(bot=self)
         # Por ejemplo, asigna el primer guild conectado
         if self.guilds:
-            self.guild_object.set_discord_guild(self.guilds[0])
-        if not self.console:
-            self.console = ConsoleManager(bot=self, connected_guilds=self.connected_guilds)
-            self.console.start()
+            self.guild_object.set_discord_guild(self.guilds[3])
     #funcion para enviar mensajes
     async def send_embed(self, channel_id, embed, view):
         channel = self.get_channel(channel_id)
@@ -72,7 +70,16 @@ class DiscordBot(commands.Bot):
 
 def main():
     bot = DiscordBot()
-    bot.run(bot.config.getToken())
-
+    # Inicia el bot en el hilo principal
+    threading.Thread(target=bot.run, args=(bot.config.getToken(),), daemon=True).start()
+    # Espera a que el bot esté listo y tenga guilds conectados
+    import time
+    while not bot.connected_guilds:
+        time.sleep(1)
+    # Inicia la consola en un hilo separado
+    console = ConsoleManager(bot, bot.connected_guilds)
+    console.start()
+    # Mantén el main thread vivo
+    console.join()
 if __name__ == "__main__":
     main()

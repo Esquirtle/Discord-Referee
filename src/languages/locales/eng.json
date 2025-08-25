@@ -47,6 +47,20 @@
 
     "stats_button_mystats": "View Stats",
     "stats_button_history": "View Match History",
-    "stats_button_ranking": "See Ranking"
+    "stats_button_ranking": "See Ranking",
 
+    "install_panel_title": "Installation Panel",
+    "install_panel_description": "🛠️ Welcome! Use this panel to install, check, or delete the bot's configuration. Please follow the instructions below.",
+    "install_panel_field_info": "How does it work?",
+    "install_panel_field_info_value": "Click **Install** to set up the bot, **Check** to verify the installation, or **Delete** to remove all configuration data.",
+    "install_panel_footer": "Contact an admin if you need help with the installation.",
+    "install_button_install": "Install",
+    "install_button_check": "Check",
+    "install_button_delete": "Delete",
+    "install_modal_title": "Install Bot",
+    "install_modal_path_label": "Installation Path",
+    "install_modal_path_placeholder": "Enter the path where the bot should be installed",
+    "delete_modal_title": "Delete Configuration",
+    "delete_modal_confirm_label": "Type DELETE to confirm",
+    "delete_modal_confirm_placeholder": "DELETE"
 }
